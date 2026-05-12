@@ -465,7 +465,7 @@ public class UiGenerator {
         s.append("      h+='<div class=\"toggle-row\"><input type=\"checkbox\" id=\"f-'+col.javaName+'\" name=\"'+col.javaName+'\"'+(vs==='true'?' checked':'')+'>'\n");
         s.append("        +'<label for=\"f-'+col.javaName+'\" class=\"toggle-label\">'+escH(col.label)+'</label></div>';\n");
         s.append("    } else {\n");
-        s.append("      var it=inferType(col.sqlType);\n");
+        s.append("      var it=col.mask?'text':inferType(col.sqlType);\n");
         s.append("      var ph=col.placeholder?col.placeholder:col.label;\n");
         s.append("      var extras='';\n");
         s.append("      if(col.min)extras+=' min=\"'+escA(col.min)+'\"';\n");
@@ -744,7 +744,7 @@ public class UiGenerator {
         s.append("function gv(row,col){var v=row[col.columnName];return v!==undefined?v:row[col.javaName];}\n");
         s.append("function escH(s){s=String(s||'');return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}\n");
         s.append("function escA(s){s=String(s||'');return s.replace(/\"/g,'&quot;');}\n");
-        s.append("function inferType(t){t=(t||'').toUpperCase();if(t.indexOf('INT')>=0||t.indexOf('DOUBLE')>=0||t.indexOf('FLOAT')>=0||t.indexOf('DECIMAL')>=0)return 'number';if(t==='DATE')return 'date';if(t==='TIMESTAMP')return 'datetime-local';return 'text';}\n\n");
+        s.append("function inferType(t){t=(t||'').toUpperCase();if(t==='DATE')return 'date';if(t==='TIMESTAMP')return 'datetime-local';return 'text';}\n\n");
 
         s.append("function toast(msg,type){\n");
         s.append("  var el=document.getElementById('toast');\n");
